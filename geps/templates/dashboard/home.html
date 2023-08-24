@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% block title %}
+    <title>GEPS - Gerenciamento Eletrônico de Professores Substitutos</title>
+{% endblock %}
+{% block menu %}
+    <nav class="navbar bg-primary justify-content-center" data-bs-theme="dark"></nav>
+    {% if request.user.is_authenticated %}
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group" style="width:60%;">
+                {% if not instituicao %}
+                    <a href="/formDispDocente/" class="btn btn-primary">Disponibilidade</a>&nbsp;
+                {% else %}
+                    <a href="/formPesquisaDocente/" class="btn btn-primary">Pesquisar Docente</a>&nbsp;
+                {% endif %}
+                <a href="" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Minha Conta</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/changePassword/" class="dropdown-item">Alterar Senha</a></li>
+                    {% if not instituicao %}
+                        <li><a href="/formEditUser/" class="dropdown-item" >Editar Cadastro</a></li>
+                        <li><a href="/formDeleteUser/" class="dropdown-item">Excluir Conta</a></li>
+                    {% else %}
+                        <li><a href="/formEditInst/" class="dropdown-item" >Editar Cadastro</a></li>
+                        <li><a href="/formDeleteInst/" class="dropdown-item">Excluir Conta</a></li>
+                    {% endif %}
+
+
+                </ul>
+            </div>
+            <div class="btn-group" style="width:40%;">
+                <a href="" class="btn btn-primary bg-light text-muted" style="pointer-events: none;">Usuário:</a>&nbsp;
+                    <input type="text" class="form-control item" name="usuario" id="usuario" value="{{request.user.first_name|upper}}" disabled >
+                <a href="/logouts/" class="btn btn-primary">Sair</a>
+            </div>
+            <br>
+        </div>
+    {% else %}
+        <div class="alert alert-danger mx-auto text-center">
+            <h3>Sessão expirada, faça novamente o login !</h3>
+        </div>
+        <br>
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group"></div>
+            <div class="btn-group mx-auto">
+                <a href="/home/" class="btn btn-primary">Home</a>&nbsp;
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+<footer>
+    {% block footer %}
+
+        <script id="aioa-adawidget" src="{{ AIOA_URL }}"></script>
+        
+    {% endblock %}
+</footer>

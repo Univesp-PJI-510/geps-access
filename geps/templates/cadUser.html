@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+{% block title %}
+    <title>Cadastro de Docentes</title>
+{% endblock %}
+{% block content %}
+    <div class="cadastro-form">
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group"></div>
+            <div class="btn-group mx-auto">
+                <a href="/home/" class="btn btn-primary">Home</a>&nbsp;
+            </div>
+        </div>
+        <form action="/insertUser/" name="form-user" id="formUser" method="post">
+            <div>
+                {% if msg %}
+                    <div class="alert {{class}} mensagem mx-auto" id="msg">
+                        {{msg}}
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-icon">
+                    <span><i class="icon icon-user"></i></span>
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="text" class="form-control item" name="nome" id="nome" placeholder="Nome Completo:" value="{{ nome }}" >
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="text" class="form-control item" name="name" id="name" placeholder="Nome do Usuário (login):"value="{{ name }}" >
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="password" class="form-control item" name="password" id="password" placeholder="Senha do Usuário:">
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="password" class="form-control item" name="password-conf" id="password-conf" placeholder="Repita a Senha:">
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="text" class="form-control item" name="email" id="email" placeholder="Email do Usuário:" value="{{ email }}" >
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="text" class="form-control item" name="telefone" id="telefone" placeholder="Telefone do Usuário com DDD:" value="{{ telefone }}" >
+                </div>
+                <div class="form-group mx-auto">
+                    <input type="text" class="form-control item" name="reg_funcional" id="reg_funcional" placeholder="Registro Funcional" value="{{ reg_funcional }}" >
+                </div>
+                <div class="form-group mx-auto">
+                    <button type="submit" class="btn btn-block criar-conta">Criar Conta</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="regra_senha">
+        <span class="small">
+            <ul>
+                <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                <li>Sua senha precisa conter pelo menos 9 caracteres.</li>
+                <li>Sua senha não pode ser uma senha comumente utilizada.</li>
+                <li>Sua senha não pode ser inteiramente numérica.</li>
+            </ul>
+        </span>
+    </div>
+    <script>
+        $('input[name="telefone"]').mask('(00) 00000-0000');
+    </script>
+{% endblock %}
